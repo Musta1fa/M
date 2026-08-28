@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   gsap.registerPlugin(ScrollTrigger);
 
   // Initialize Core Subsystems
+  initMobileMenu();
   initLenisSmoothScroll();
   initAmbientParticleCanvas();
   initCustomCursor();
@@ -23,21 +24,87 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================================================
-   1. LENIS SMOOTH SCROLL + GSAP SCROLLTRIGGER SYNCHRONIZATION
+   1. RESPONSIVE MOBILE NAVIGATION DRAWER & MENU ENGINE
+   ========================================================================== */
+function initMobileMenu() {
+  const toggleBtn = document.getElementById('btn-mobile-toggle');
+  const closeBtn = document.getElementById('btn-mobile-close');
+  const navWrapper = document.getElementById('nav-menu-wrapper');
+  const backdrop = document.getElementById('nav-backdrop');
+  const navLinks = document.querySelectorAll('.nav-menu .nav-link');
+
+  if (!toggleBtn || !navWrapper) return;
+
+  function openMenu() {
+    navWrapper.classList.add('active');
+    if (backdrop) backdrop.classList.add('active');
+    toggleBtn.classList.add('active');
+    toggleBtn.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('no-scroll');
+  }
+
+  function closeMenu() {
+    navWrapper.classList.remove('active');
+    if (backdrop) backdrop.classList.remove('active');
+    toggleBtn.classList.remove('active');
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('no-scroll');
+  }
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (navWrapper.classList.contains('active')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeMenu);
+  }
+
+  if (backdrop) {
+    backdrop.addEventListener('click', closeMenu);
+  }
+
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      closeMenu();
+    });
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navWrapper.classList.contains('active')) {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && navWrapper.classList.contains('active')) {
+      closeMenu();
+    }
+  });
+}
+
+/* ==========================================================================
+   2. LENIS SMOOTH SCROLL + GSAP SCROLLTRIGGER SYNCHRONIZATION
    ========================================================================== */
 let lenisInstance = null;
 
 function initLenisSmoothScroll() {
-  // Initialize Lenis with optimal 2027 inertia parameters
+  const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || window.innerWidth <= 768;
+
+  // Initialize Lenis with device-adapted smoothness
   lenisInstance = new Lenis({
-    duration: 1.2,
+    duration: isTouchDevice ? 0.9 : 1.15,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     orientation: 'vertical',
     gestureOrientation: 'vertical',
     smoothWheel: true,
     wheelMultiplier: 1,
-    touchMultiplier: 1.5,
-    infinite: false,
+    touchMultiplier: 1.2,
+    syncTouch: false,
   });
 
   // Synchronize Lenis with GSAP ScrollTrigger
@@ -60,30 +127,35 @@ function initLenisSmoothScroll() {
   // Header Scroll State
   const header = document.querySelector('.site-header');
   if (header) {
-    lenisInstance.on('scroll', ({ scroll }) => {
-      if (scroll > 40) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
+    // Header Scroll State
+    const header = document.querySelector('.site-header');
+    if (header) {
+      lenisInstance.on('scroll', ({ scroll }) => {
+        if (scroll > 30) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+    }
   }
 }
 
 /* ==========================================================================
-   2. AMBIENT 2D PARTICLE CANVASES (HARDWARE OPTIMIZED)
+   3. AMBIENT 2D PARTICLE CANVASES (HARDWARE & MOBILE OPTIMIZED)
    ========================================================================== */
 function initAmbientParticleCanvas() {
-  const canvas = document.getElementById('bg-canvas');
+  const canvas = document.getElementById('ambient-canvas') || document.getElementById('bg-canvas');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d', { alpha: true });
   let width, height;
   let particles = [];
-  const particleCount = window.innerWidth < 768 ? 25 : 55;
-  const maxDistance = 140;
+  const isMobile = window.innerWidth < 768;
+  const particleCount = isMobile ? 18 : 55;
+  const maxDistance = isMobile ? 90 : 140;
 
-  const mouse = { x: null, y: null, radius: 160 };
+  const mouse = { x: null, y: null, radius: 150 };
 
   function resize() {
     width = canvas.width = window.innerWidth;
@@ -92,22 +164,24 @@ function initAmbientParticleCanvas() {
   window.addEventListener('resize', resize);
   resize();
 
-  window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
+  if (!isMobile) {
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
 
-  window.addEventListener('mouseleave', () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
+    window.addEventListener('mouseleave', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+  }
 
   class Particle {
     constructor() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * 0.75;
-      this.vy = (Math.random() - 0.5) * 0.75;
+      this.vx = (Math.random() - 0.5) * (isMobile ? 0.4 : 0.75);
+      this.vy = (Math.random() - 0.5) * (isMobile ? 0.4 : 0.75);
       this.radius = Math.random() * 2 + 1;
       this.color = Math.random() > 0.4 ? 'rgba(10, 228, 72, 0.4)' : 'rgba(0, 242, 254, 0.3)';
     }
@@ -119,7 +193,7 @@ function initAmbientParticleCanvas() {
       if (this.x < 0 || this.x > width) this.vx *= -1;
       if (this.y < 0 || this.y > height) this.vy *= -1;
 
-      // Mouse Interaction (Subtle Repulsion)
+      // Mouse Interaction
       if (mouse.x !== null && mouse.y !== null) {
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
@@ -145,47 +219,51 @@ function initAmbientParticleCanvas() {
     particles.push(new Particle());
   }
 
-  let animationFrameId;
   function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    // Draw connecting lines
     for (let i = 0; i < particles.length; i++) {
       particles[i].update();
       particles[i].draw();
 
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.hypot(dx, dy);
+      if (!isMobile) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.hypot(dx, dy);
 
-        if (dist < maxDistance) {
-          const alpha = (1 - dist / maxDistance) * 0.18;
-          ctx.strokeStyle = `rgba(10, 228, 72, ${alpha})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
+          if (dist < maxDistance) {
+            const alpha = (1 - dist / maxDistance) * 0.16;
+            ctx.strokeStyle = `rgba(10, 228, 72, ${alpha})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
         }
       }
     }
 
-    animationFrameId = requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
   }
 
   animate();
 }
 
 /* ==========================================================================
-   3. ADAPTIVE CUSTOM CURSOR ENGINE (LERP DECOUPLED)
+   4. ADAPTIVE CUSTOM CURSOR ENGINE (DESKTOP ONLY - DISABLED ON TOUCH)
    ========================================================================== */
 function initCustomCursor() {
   const dot = document.querySelector('.cursor-dot');
   const follower = document.querySelector('.cursor-follower');
   const glow = document.querySelector('.cursor-glow');
 
-  if (!dot || !follower || window.matchMedia('(pointer: coarse)').matches) {
+  const isTouch = window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768 || ('ontouchstart' in window);
+  if (isTouch) {
+    if (dot) dot.style.display = 'none';
+    if (follower) follower.style.display = 'none';
+    if (glow) glow.style.display = 'none';
     return;
   }
 
@@ -425,7 +503,7 @@ function initHeroParallax() {
 }
 
 /* ==========================================================================
-   6. PINNED HORIZONTAL SCROLL SHOWCASE (GSAP SCROLLTRIGGER)
+   6. PINNED HORIZONTAL SCROLL SHOWCASE (GSAP SCROLLTRIGGER + RESPONSIVE)
    ========================================================================== */
 function initHorizontalScrollShowcase() {
   const container = document.querySelector('.horizontal-scroll-container');
@@ -433,22 +511,31 @@ function initHorizontalScrollShowcase() {
 
   if (!container || !track) return;
 
-  // Calculate total horizontal travel distance
-  const getScrollAmount = () => -(track.scrollWidth - window.innerWidth + 120);
+  const mm = gsap.matchMedia();
 
-  const horizontalTween = gsap.to(track, {
-    x: getScrollAmount,
-    ease: 'none',
+  // Desktop & Tablet (> 768px): Ultra smooth GSAP Pinned Scrub
+  mm.add('(min-width: 769px)', () => {
+    const getScrollAmount = () => -(track.scrollWidth - window.innerWidth + 120);
+
+    const horizontalTween = gsap.to(track, {
+      x: getScrollAmount,
+      ease: 'none',
+    });
+
+    ScrollTrigger.create({
+      trigger: container,
+      start: 'top top',
+      end: () => `+=${track.scrollWidth - window.innerWidth}`,
+      pin: true,
+      animation: horizontalTween,
+      scrub: 1.2,
+      invalidateOnRefresh: true,
+    });
   });
 
-  ScrollTrigger.create({
-    trigger: container,
-    start: 'top top',
-    end: () => `+=${track.scrollWidth - window.innerWidth}`,
-    pin: true,
-    animation: horizontalTween,
-    scrub: 1.2,
-    invalidateOnRefresh: true,
+  // Mobile (<= 768px): Clean Native Touch-Swipe with smooth scroll-snap & no pin lock
+  mm.add('(max-width: 768px)', () => {
+    gsap.set(track, { clearProps: 'transform,x' });
   });
 
   // Mini live animations inside horizontal cards

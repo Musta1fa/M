@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>GSAP 2027 // تجربة الحركة والويب التفاعلي فائق الأداء</title>
   
   <!-- SEO & Social Meta Tags -->
@@ -29,23 +29,19 @@
 </head>
 <body>
 
-  <!-- Custom Cursor Elements -->
+  <!-- Ambient Interactive Canvas (Background Particles) -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Progress Bar (Page Top Indicator) -->
+  <div id="scroll-progress-bar"></div>
+
+  <!-- Custom Cursor Engine (Desktop Only) -->
   <div class="cursor-dot"></div>
   <div class="cursor-follower"></div>
   <div class="cursor-glow"></div>
 
-  <!-- Scroll Progress Indicator -->
-  <div class="scroll-progress-container">
-    <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
-  </div>
-
-  <!-- Ambient Glowing Auras -->
-  <div class="ambient-aura aura-1"></div>
-  <div class="ambient-aura aura-2"></div>
-  <div class="ambient-aura aura-3"></div>
-
-  <!-- Interactive 2D Particle Background Canvas -->
-  <canvas id="bg-canvas"></canvas>
+  <!-- Mobile Drawer Backdrop Overlay -->
+  <div class="mobile-nav-backdrop" id="nav-backdrop"></div>
 
   <!-- Site Header & Glass Navigation -->
   <header class="site-header">
@@ -59,12 +55,27 @@
           <span class="logo-badge">PRO</span>
         </a>
 
-        <ul class="nav-menu">
-          <li><a href="#showcase" class="nav-link" data-i18n="navShowcase">المعرض الأفقي</a></li>
-          <li><a href="#playground" class="nav-link" data-i18n="navPlayground">مختبر الحركة</a></li>
-          <li><a href="#features" class="nav-link" data-i18n="navFeatures">المعمارية</a></li>
-          <li><a href="#deploy" class="nav-link" data-i18n="navDeploy">نشر GitHub</a></li>
-        </ul>
+        <!-- Navigation Menu (Desktop & Responsive Mobile Drawer) -->
+        <div class="nav-menu-wrapper" id="nav-menu-wrapper">
+          <div class="mobile-menu-header">
+            <span class="mobile-menu-title">القائمة الرئيسية</span>
+            <button class="mobile-close-btn" id="btn-mobile-close" aria-label="Close Menu">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <ul class="nav-menu" id="nav-menu">
+            <li><a href="#showcase" class="nav-link" data-i18n="navShowcase">المعرض الأفقي</a></li>
+            <li><a href="#playground" class="nav-link" data-i18n="navPlayground">مختبر الحركة</a></li>
+            <li><a href="#features" class="nav-link" data-i18n="navFeatures">المعمارية</a></li>
+            <li><a href="#deploy" class="nav-link" data-i18n="navDeploy">نشر GitHub</a></li>
+          </ul>
+          <div class="mobile-menu-footer">
+            <a href="https://wa.me/201023760751" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-mobile">
+              <i data-lucide="message-circle"></i>
+              <span>تواصل عبر واتساب</span>
+            </a>
+          </div>
+        </div>
 
         <div class="nav-actions">
           <!-- Theme Toggle -->
@@ -78,13 +89,14 @@
             <span class="lang-label">AR</span>
           </button>
 
-          <!-- Primary Action -->
-          <a href="#playground" class="btn btn-primary btn-pill" data-magnetic style="padding: 0.6rem 1.4rem; font-size: 0.9rem;">
+          <!-- Primary Action (Desktop) -->
+          <a href="#playground" class="btn btn-primary btn-pill header-cta" data-magnetic style="padding: 0.6rem 1.4rem; font-size: 0.9rem;">
             <span>تشغيل المعمل</span>
             <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i>
           </a>
 
-          <button class="mobile-toggle" aria-label="Open Menu">
+          <!-- Mobile Hamburger Toggle Button -->
+          <button class="mobile-toggle" id="btn-mobile-toggle" aria-label="Open Menu" aria-expanded="false">
             <i data-lucide="menu"></i>
           </button>
         </div>
@@ -213,7 +225,8 @@
         <p class="section-desc" data-i18n="secShowcaseDesc">استمتع بتجربة تثبيت الشاشة وتحويل مسارات التمرير والتحولات الهندسية ذات الإطارات المرتفعة.</p>
       </div>
 
-      <div class="horizontal-track">
+      <div class="horizontal-track-wrapper">
+        <div class="horizontal-track">
         
         <!-- Showcase 1 -->
         <div class="showcase-card">
@@ -296,6 +309,7 @@
           </div>
         </div>
 
+        </div>
       </div>
     </section>
 
