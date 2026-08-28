@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP 2027 // تجربة الحركة والويب التفاعلي فائق الأداء</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="موقع ويب استعراضي متطور لعام 2027 مستوحى من GSAP مع حركات التمرير، المؤشر المخصص، البارالاكس، والمختبر التفاعلي. جاهز للنشر المباشر على GitHub Pages.">
+  <meta name="keywords" content="GSAP, ScrollTrigger, Web Animation, 2027 Web Design, Smooth Scroll, Lenis, Parallax, Custom Cursor">
+  <meta name="theme-color" content="#06090e">
+  <meta property="og:title" content="GSAP 2027 Hyper-Motion Showcase">
+  <meta property="og:description" content="Next-Gen 2027 Web Animations, ScrollTrigger Pinning & Live Easing Playground.">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon SVG (GSAP Neon Diamond) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='70' height='70' x='15' y='15' rx='18' transform='rotate(45 50 50)' fill='%230ae448'/><rect width='28' height='28' x='36' y='36' rx='6' fill='%2306090e'/></svg>">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- High-Performance Motion Libraries via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+</head>
+<body>
+
+  <!-- Custom Cursor Elements -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-follower"></div>
+  <div class="cursor-glow"></div>
+
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress-container">
+    <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Ambient Glowing Auras -->
+  <div class="ambient-aura aura-1"></div>
+  <div class="ambient-aura aura-2"></div>
+  <div class="ambient-aura aura-3"></div>
+
+  <!-- Interactive 2D Particle Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Site Header & Glass Navigation -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav-wrapper">
+        <a href="#hero" class="brand-logo" data-magnetic>
+          <div class="logo-symbol">
+            <div class="logo-symbol-inner"></div>
+          </div>
+          <span>GSAP<span style="color: var(--accent-green)">2027</span></span>
+          <span class="logo-badge">PRO</span>
+        </a>
+
+        <ul class="nav-menu">
+          <li><a href="#showcase" class="nav-link" data-i18n="navShowcase">المعرض الأفقي</a></li>
+          <li><a href="#playground" class="nav-link" data-i18n="navPlayground">مختبر الحركة</a></li>
+          <li><a href="#features" class="nav-link" data-i18n="navFeatures">المعمارية</a></li>
+          <li><a href="#deploy" class="nav-link" data-i18n="navDeploy">نشر GitHub</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <!-- Theme Toggle -->
+          <button id="btn-theme-toggle" class="ctrl-btn" title="تبديل الثيم" aria-label="Toggle Theme">
+            <span class="theme-icon">🌙</span>
+          </button>
+
+          <!-- Language Toggle -->
+          <button id="btn-lang-toggle" class="ctrl-btn" title="Switch Language" aria-label="Toggle Language">
+            <i data-lucide="globe" style="width: 14px; height: 14px;"></i>
+            <span class="lang-label">AR</span>
+          </button>
+
+          <!-- Primary Action -->
+          <a href="#playground" class="btn btn-primary btn-pill" data-magnetic style="padding: 0.6rem 1.4rem; font-size: 0.9rem;">
+            <span>تشغيل المعمل</span>
+            <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i>
+          </a>
+
+          <button class="mobile-toggle" aria-label="Open Menu">
+            <i data-lucide="menu"></i>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Flow -->
+  <main>
+
+    <!-- 1. Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <div class="hero-content">
+            <div class="pill-badge">
+              <span class="pulse-dot"></span>
+              <span data-i18n="badge">⚡ محرك الحركة الفائق لعام 2027 // معرض GSAP المتقدم</span>
+            </div>
+
+            <h1 class="hero-title" data-scramble="اصنع تجارب رقمية تأسر الحواس وتتحرك بانسيابية" data-i18n="heroTitle">
+              اصنع تجارب رقمية تأسر الحواس وتتحرك بانسيابية
+            </h1>
+
+            <p class="hero-subtitle" data-i18n="heroSubtitle">
+              حركات ويب استعراضية من الجيل القادم مبنية بأقوى تقنيات GSAP 3 والتمرير فائق النعومة وتسريع العتاد الرسومي لضمان ثبات الإطارات عند 120 FPS.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#showcase" class="btn btn-primary" data-magnetic>
+                <span data-i18n="btnExplore">استكشف استوديو الحركة</span>
+                <i data-lucide="arrow-up-right" style="width: 18px; height: 18px;"></i>
+              </a>
+
+              <a href="#playground" class="btn btn-glass" data-magnetic>
+                <i data-lucide="play" style="width: 16px; height: 16px; fill: currentColor;"></i>
+                <span data-i18n="btnShowreel">المختبر التفاعلي</span>
+              </a>
+            </div>
+
+            <div class="hero-stats-row">
+              <div class="hero-stat-item">
+                <h4 data-counter="120" data-suffix=" FPS">0 FPS</h4>
+                <p>سلاسة العرض والتحديث</p>
+              </div>
+              <div class="hero-stat-item">
+                <h4 data-counter="0.15" data-suffix="s LERP">0s</h4>
+                <p>تخميد حركة المؤشر</p>
+              </div>
+              <div class="hero-stat-item">
+                <h4 data-counter="100" data-suffix="% GPU">0%</h4>
+                <p>تسريع عتادي مباشر</p>
+              </div>
+              <div class="hero-stat-item">
+                <h4 data-counter="0" data-suffix=" Jank">0</h4>
+                <p>انعدام التقطيع والتهنيج</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3D Parallax Visualizer Stage -->
+          <div class="hero-visual">
+            <div class="visual-stage">
+              
+              <!-- Floating Card 1: Live Timeline -->
+              <div class="floating-card card-main">
+                <div class="card-header-bar">
+                  <div class="card-dots">
+                    <span class="card-dot dot-red"></span>
+                    <span class="card-dot dot-yellow"></span>
+                    <span class="card-dot dot-green"></span>
+                  </div>
+                  <span class="card-tag">Timeline.timeline()</span>
+                </div>
+                <p style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem; color: #fff;">
+                  Realtime Motion Scrub
+                </p>
+                <div class="interactive-wave-track">
+                  <div class="wave-ball"></div>
+                </div>
+              </div>
+
+              <!-- Floating Card 2: Code Syntax -->
+              <div class="floating-card card-code">
+                <div class="card-header-bar">
+                  <div class="card-dots">
+                    <span class="card-dot dot-green"></span>
+                  </div>
+                  <span class="card-tag">engine.js</span>
+                </div>
+                <div class="code-snippet">
+                  <span class="code-keyword">gsap</span>.<span class="code-func">to</span>(<span class="code-str">".world"</span>, {<br>
+                  &nbsp;&nbsp;<span class="code-prop">motion</span>: <span class="code-str">"unlimited"</span>,<br>
+                  &nbsp;&nbsp;<span class="code-prop">fps</span>: <span class="code-keyword">120</span>,<br>
+                  &nbsp;&nbsp;<span class="code-prop">ease</span>: <span class="code-str">"expo.out"</span><br>
+                  });
+                </div>
+              </div>
+
+              <!-- Floating Card 3: Status Badge -->
+              <div class="floating-card card-mini">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(0, 242, 254, 0.15); border: 1px solid rgba(0, 242, 254, 0.3); display: flex; align-items: center; justify-content: center; color: var(--accent-cyan);">
+                    <i data-lucide="cpu" style="width: 20px; height: 20px;"></i>
+                  </div>
+                  <div>
+                    <h5 style="font-size: 0.9rem; font-weight: 700; color: #fff;">Lenis + GSAP</h5>
+                    <p style="font-size: 0.75rem; color: var(--accent-green); font-family: var(--font-mono);">SYNCED 100%</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Pinned Horizontal Scroll Showcase -->
+    <section id="showcase" class="horizontal-scroll-container">
+      <div class="section-header" style="margin-top: 4rem;">
+        <span class="section-tag" data-i18n="secShowcaseTag">القدرات البرمجية الأساسية</span>
+        <h2 class="section-title text-gradient" data-i18n="secShowcaseTitle">معمارية المحرك واستعراض التمرير الأفقي</h2>
+        <p class="section-desc" data-i18n="secShowcaseDesc">استمتع بتجربة تثبيت الشاشة وتحويل مسارات التمرير والتحولات الهندسية ذات الإطارات المرتفعة.</p>
+      </div>
+
+      <div class="horizontal-track">
+        
+        <!-- Showcase 1 -->
+        <div class="showcase-card">
+          <div>
+            <div class="card-num">01</div>
+            <div class="showcase-icon-box">
+              <i data-lucide="layers"></i>
+            </div>
+            <h3>ScrollTrigger Pinning</h3>
+            <p>تثبيت العناصر في مسار الشاشة مع ربط حركة الخط الزمني بدقة متناهية مع بكسلات التمرير دون حدوث أي وميض أو اهتزاز.</p>
+          </div>
+          <div class="showcase-visual-preview">
+            <div class="pulse-preview-bar" style="height: 6px; background: var(--accent-green); border-radius: 3px; width: 30%;"></div>
+          </div>
+        </div>
+
+        <!-- Showcase 2 -->
+        <div class="showcase-card">
+          <div>
+            <div class="card-num">02</div>
+            <div class="showcase-icon-box" style="color: var(--accent-cyan); border-color: rgba(0, 242, 254, 0.3); background: rgba(0, 242, 254, 0.1);">
+              <i data-lucide="shapes"></i>
+            </div>
+            <h3>MorphSVG & Transforms</h3>
+            <p>تحويل الأشكال الهندسية المتجهة بسلاسة غير مسبوقة مع حساب نقاط التماس وحسابات الاستيفاء البصري الفوري.</p>
+          </div>
+          <div class="showcase-visual-preview">
+            <div class="morph-preview-box" style="width: 50px; height: 50px; background: linear-gradient(45deg, var(--accent-cyan), var(--accent-green)); border-radius: 12px;"></div>
+          </div>
+        </div>
+
+        <!-- Showcase 3 -->
+        <div class="showcase-card">
+          <div>
+            <div class="card-num">03</div>
+            <div class="showcase-icon-box" style="color: var(--accent-purple); border-color: rgba(157, 78, 221, 0.3); background: rgba(157, 78, 221, 0.1);">
+              <i data-lucide="repeat"></i>
+            </div>
+            <h3>Flip Plugin Transitions</h3>
+            <p>تسجيل أبعاد العناصر وحالاتها في الذاكرة (FLIP: First, Last, Invert, Play) وتحريكها تلقائيًا بين مواقع الـ DOM المختلفة.</p>
+          </div>
+          <div class="showcase-visual-preview">
+            <div style="font-family: var(--font-mono); font-size: 0.85rem; color: #a5b4fc; text-align: center;">
+              &lt;State: Inverted /&gt;<br><span style="color: var(--accent-green);">Scale: 1.0 -> Transform</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Showcase 4 -->
+        <div class="showcase-card">
+          <div>
+            <div class="card-num">04</div>
+            <div class="showcase-icon-box">
+              <i data-lucide="type"></i>
+            </div>
+            <h3>Kinetic Split Typography</h3>
+            <p>تفكيك العبارات والكلمات إلى حروف مستقلة وتحريكها بزوايا ثلاثية الأبعاد مع تأثير فك التشفير السيبراني.</p>
+          </div>
+          <div class="showcase-visual-preview">
+            <span style="font-family: var(--font-mono); font-weight: 800; font-size: 1.2rem; color: var(--accent-green);">
+              [K_I_N_E_T_I_C]
+            </span>
+          </div>
+        </div>
+
+        <!-- Showcase 5 -->
+        <div class="showcase-card">
+          <div>
+            <div class="card-num">05</div>
+            <div class="showcase-icon-box" style="color: #ff007f; border-color: rgba(255, 0, 127, 0.3); background: rgba(255, 0, 127, 0.1);">
+              <i data-lucide="activity"></i>
+            </div>
+            <h3>Inertia & Physics Spring</h3>
+            <p>محاكاة الجاذبية والاحتكاك وقوة الدفع الحركي التفاعلي مع دعم السحب والإفلات التلقائي.</p>
+          </div>
+          <div class="showcase-visual-preview">
+            <span style="font-family: var(--font-mono); color: #ff007f; font-size: 0.9rem;">
+              Velocity: 1420px/s (Damped)
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. Interactive Motion & Easing Playground -->
+    <section id="playground" class="playground-section">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-tag" data-i18n="secPlaygroundTag">مختبر التجربة الحية</span>
+          <h2 class="section-title text-gradient" data-i18n="secPlaygroundTitle">مختبر منحنيات الحركة والتسارع التفاعلي</h2>
+          <p class="section-desc" data-i18n="secPlaygroundDesc">تحكم بدقة في منحنيات الحركة الفيزيائية واختبر تأثيراتها فوراً وانسخ كود GSAP الجاهز بضغطة زر.</p>
+        </div>
+
+        <div class="playground-shell">
+          
+          <!-- Controls Column -->
+          <div class="controls-col">
+            <h3>تخصيص المعاملات والمنحنى</h3>
+
+            <div class="control-group">
+              <label class="control-label">اختر منحنى التسارع (Easing Curve):</label>
+              <div class="ease-selector-grid">
+                <button class="ease-pill active" data-ease="elastic.out(1, 0.3)">Elastic</button>
+                <button class="ease-pill" data-ease="power4.out">Power4.out</button>
+                <button class="ease-pill" data-ease="bounce.out">Bounce</button>
+                <button class="ease-pill" data-ease="back.out(1.7)">Back (1.7)</button>
+                <button class="ease-pill" data-ease="circ.inOut">Circ.inOut</button>
+                <button class="ease-pill" data-ease="expo.out">Expo.out</button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <div class="control-label">
+                <span>المدة الزمنية (Duration):</span>
+                <span id="val-duration">1.4s</span>
+              </div>
+              <input id="slider-duration" type="range" class="range-slider" min="0.3" max="3" step="0.1" value="1.4">
+            </div>
+
+            <div class="control-group">
+              <div class="control-label">
+                <span>زاوية الدوران (Rotation):</span>
+                <span id="val-rotation">180°</span>
+              </div>
+              <input id="slider-rotation" type="range" class="range-slider" min="0" max="720" step="45" value="180">
+            </div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+              <button id="btn-play-ease" class="btn btn-primary" style="flex: 1;">
+                <i data-lucide="play"></i>
+                <span>تشغيل الحركة</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Preview & Stage Column -->
+          <div class="stage-col">
+            <div class="stage-preview-box">
+              <canvas id="ease-graph-canvas" class="graph-canvas"></canvas>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; z-index: 2;">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-green);">
+                  LIVE GRAPH PREVIEW
+                </span>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">
+                  انقر على الكائن لإعادة الحركة
+                </span>
+              </div>
+
+              <!-- Interactive Arena with Morphing Target Box -->
+              <div class="stage-arena">
+                <div id="playground-target" class="morphing-target-box" title="انقر للتحريك">
+                  <i data-lucide="zap"></i>
+                </div>
+              </div>
+
+              <!-- Code Output Bar -->
+              <div class="code-output-card">
+                <code id="code-output-text" style="color: #a5b4fc; overflow-x: auto; white-space: pre;">gsap.to(".element", { ... });</code>
+                <button id="btn-copy-code" class="ctrl-btn" style="margin-left: 1rem; flex-shrink: 0;" data-i18n="btnCopy">
+                  <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+                  <span>نسخ الكود</span>
+                </button>
+              </div>
+
+              <!-- Toast notification -->
+              <div id="copy-toast" style="position: absolute; top: 1rem; right: 1rem; background: var(--accent-green); color: #06090e; padding: 0.4rem 0.85rem; border-radius: 8px; font-weight: 700; font-size: 0.8rem; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; pointer-events: none; z-index: 10;">
+                ✓ تم نسخ كود GSAP إلى الحافظة!
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Infinite Kinetic Marquee -->
+    <section class="marquee-section">
+      <div class="marquee-track">
+        <div class="marquee-item">GSAP 3.12 <span class="marquee-spark">✦</span> SCROLLTRIGGER <span class="marquee-spark">✦</span> 120 FPS <span class="marquee-spark">✦</span> HARDWARE ACCELERATION <span class="marquee-spark">✦</span> LENIS SMOOTH MOTION <span class="marquee-spark">✦</span> PARALLAX MATRIX <span class="marquee-spark">✦</span> GITHUB PAGES READY <span class="marquee-spark">✦</span></div>
+        <div class="marquee-item">GSAP 3.12 <span class="marquee-spark">✦</span> SCROLLTRIGGER <span class="marquee-spark">✦</span> 120 FPS <span class="marquee-spark">✦</span> HARDWARE ACCELERATION <span class="marquee-spark">✦</span> LENIS SMOOTH MOTION <span class="marquee-spark">✦</span> PARALLAX MATRIX <span class="marquee-spark">✦</span> GITHUB PAGES READY <span class="marquee-spark">✦</span></div>
+      </div>
+    </section>
+
+    <!-- 5. Architectural Bento Grid -->
+    <section id="features">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-tag" data-i18n="secBentoTag">لماذا يتفوق معمارياً؟</span>
+          <h2 class="section-title text-gradient" data-i18n="secBentoTitle">مبني لأعلى معدلات الإطارات 120 FPS</h2>
+          <p class="section-desc">معمارية برمجية خالية من أخطاء الـ Reflow والتسريبات البرمجية، تضمن أسرع وقت استجابة لأي تفاعل.</p>
+        </div>
+
+        <div class="bento-grid">
+          
+          <!-- Bento 1 (Span 2) -->
+          <div class="bento-card span-2">
+            <div class="bento-spotlight"></div>
+            <div class="bento-icon">
+              <i data-lucide="shield-check"></i>
+            </div>
+            <h3 class="bento-title">انعدام التقطيع والـ Layout Thrashing</h3>
+            <p class="bento-desc">عزل قراءات أحداث الفأرة عن طبقات الرسم وتطبيق التنعيم الخطي (Lerp) فقط عبر مسار `translate3d` و `opacity` لمنع عمليات إعادة الحساب المكلفة على المعالج المركزي.</p>
+          </div>
+
+          <!-- Bento 2 -->
+          <div class="bento-card">
+            <div class="bento-spotlight"></div>
+            <div class="bento-icon" style="color: var(--accent-cyan); border-color: rgba(0, 242, 254, 0.3);">
+              <i data-lucide="zap"></i>
+            </div>
+            <h3 class="bento-title">تزامن Lenis فائق الدقة</h3>
+            <p class="bento-desc">تكامل حلقة التمرير مع GSAP Ticker مباشرة دون أي تأخير زمني أو تعارض مع محرك المتصفح.</p>
+          </div>
+
+          <!-- Bento 3 -->
+          <div class="bento-card">
+            <div class="bento-spotlight"></div>
+            <div class="bento-icon" style="color: var(--accent-purple); border-color: rgba(157, 78, 221, 0.3);">
+              <i data-lucide="mouse-pointer"></i>
+            </div>
+            <h3 class="bento-title">مؤشر ذكي متكيف مع اللمس</h3>
+            <p class="bento-desc">يتعرف المحرك تلقائياً على شاشات اللمس والهواتف ويوقف المؤشر لتقليل استهلاك البطارية بنسبة 100%.</p>
+          </div>
+
+          <!-- Bento 4 (Span 2) -->
+          <div class="bento-card span-2">
+            <div class="bento-spotlight"></div>
+            <div class="bento-icon">
+              <i data-lucide="globe-2"></i>
+            </div>
+            <h3 class="bento-title">جاهزية كاملة لـ GitHub Pages ودومين مخصص</h3>
+            <p class="bento-desc">هيكلية استاتيكية بدون أي اعتماد على سيرفرات Node.js أو عمليات Build معقدة. ارفع الملفات واستمتع بموقع فائق السرعة عبر CDN عالمي مجاني للأبد.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. Quickstart for GitHub Pages Deployment Section -->
+    <section id="deploy" style="padding-top: 2rem;">
+      <div class="container">
+        
+        <div class="deploy-box">
+          <span class="pill-badge" style="background: rgba(0, 242, 254, 0.1); border-color: rgba(0, 242, 254, 0.3); color: var(--accent-cyan);">
+            QUICKSTART DEPLOYMENT
+          </span>
+          
+          <h2 class="section-title text-gradient" style="margin-bottom: 1rem;" data-i18n="secDeployTitle">
+            جاهز للنشر الفوري على GitHub Pages
+          </h2>
+
+          <p class="section-desc" style="max-width: 650px; margin: 0 auto;" data-i18n="secDeployDesc">
+            بدون أي تعقيدات برمجية أو عمليات بناء سيرفرية. ملفات استاتيكية نقية جاهزة للربط مع دومينك المخصص فوراً.
+          </p>
+
+          <div class="deploy-steps-grid">
+            <div class="step-card">
+              <div class="step-num">خطوة 01</div>
+              <h4>إنشاء مستودع GitHub</h4>
+              <p>أنشئ مستودعاً جديداً (New Repository) على GitHub باسم مناسب (مثلاً: `gsap-motion-site`).</p>
+            </div>
+
+            <div class="step-card">
+              <div class="step-num">خطوة 02</div>
+              <h4>رفع ملفات المشروع</h4>
+              <p>قم برفع ملفات (`index.html`, `styles.css`, ومجلد `js/`) مباشرة إلى المستودع (Main Branch).</p>
+            </div>
+
+            <div class="step-card">
+              <div class="step-num">خطوة 03</div>
+              <h4>تفعيل Pages وإضافة الدومين</h4>
+              <p>ادخل إلى Settings &gt; Pages واضبط المصدر على `Deploy from branch` ثم أضف الدومين الخاص بك في `Custom domain`.</p>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+            <a href="https://github.com/new" target="_blank" rel="noopener" class="btn btn-primary" data-magnetic>
+              <i data-lucide="github"></i>
+              <span>إنشاء مستودع على GitHub الآن</span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="brand-logo">
+          <div class="logo-symbol">
+            <div class="logo-symbol-inner"></div>
+          </div>
+          <span>GSAP<span style="color: var(--accent-green)">2027</span> SHOWCASE</span>
+        </div>
+
+        <ul class="footer-links">
+          <li><a href="#hero">الرئيسية</a></li>
+          <li><a href="#showcase">المعرض</a></li>
+          <li><a href="#playground">المختبر</a></li>
+          <li><a href="#deploy">طريقة النشر</a></li>
+        </ul>
+
+        <button id="btn-back-to-top" class="ctrl-btn" data-magnetic onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+          <i data-lucide="arrow-up" style="width: 14px; height: 14px;"></i>
+          <span>العودة للأعلى</span>
+        </button>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2027 GSAP High-Motion Engine. جاهز للنشر المباشر عبر GitHub Pages.</p>
+        <p style="font-family: var(--font-mono); color: var(--accent-green);">120 FPS // ZERO REFLECTION LAG</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Initialize Lucide Icons -->
+  <script>
+    lucide.createIcons();
+  </script>
+
+  <!-- Core App Logic -->
+  <script src="js/app.js"></script>
+</body>
+</html>
