@@ -1300,3 +1300,158 @@ section {
     display: none;
   }
 }
+
+/* ==========================================================================
+   Floating WhatsApp Button (2027 Futuristic Glow & Pulse)
+   ========================================================================== */
+.floating-whatsapp {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transform: translateZ(0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[dir="rtl"] .floating-whatsapp {
+  right: auto;
+  left: 28px;
+}
+
+.whatsapp-icon-wrap {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4),
+              0 0 20px rgba(37, 211, 102, 0.2),
+              inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+}
+
+.whatsapp-svg {
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transition: transform 0.4s ease;
+}
+
+.whatsapp-pulse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25d366;
+  opacity: 0.6;
+  animation: wa-pulse 2.2s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1;
+}
+
+@keyframes wa-pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.whatsapp-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(10, 15, 24, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  border-radius: 30px;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.whatsapp-badge-dot {
+  width: 8px;
+  height: 8px;
+  background: #25d366;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #25d366;
+  animation: wa-dot-blink 1.5s infinite ease-in-out;
+}
+
+@keyframes wa-dot-blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.floating-whatsapp:hover {
+  transform: translateY(-4px) scale(1.04);
+}
+
+.floating-whatsapp:hover .whatsapp-icon-wrap {
+  box-shadow: 0 14px 35px rgba(37, 211, 102, 0.6),
+              0 0 30px rgba(37, 211, 102, 0.4);
+}
+
+.floating-whatsapp:hover .whatsapp-svg {
+  transform: scale(1.1) rotate(-8deg);
+}
+
+.floating-whatsapp:hover .whatsapp-badge {
+  background: rgba(10, 15, 24, 0.95);
+  border-color: rgba(37, 211, 102, 0.6);
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.25);
+}
+
+@media (max-width: 768px) {
+  .floating-whatsapp {
+    bottom: 20px;
+    right: 20px;
+  }
+  [dir="rtl"] .floating-whatsapp {
+    right: auto;
+    left: 20px;
+  }
+  .whatsapp-badge {
+    display: none; /* Icon-only on small mobile screens */
+  }
+  .whatsapp-icon-wrap {
+    width: 54px;
+    height: 54px;
+  }
+  .whatsapp-pulse {
+    width: 54px;
+    height: 54px;
+  }
+  .whatsapp-svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
